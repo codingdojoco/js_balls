@@ -40,11 +40,11 @@
 			var el = document.getElementById(html_id);
 
 			//see if the circle is going outside the browser. if it is, reverse the velocity
-			if( this.info.cx > document.width || this.info.cx < 0)
+			if( this.info.cx > document.body.clientWidth || this.info.cx < 0)
 			{
 				this.info.velocity.x = this.info.velocity.x * -1;
 			}
-			if( this.info.cy > document.height || this.info.cy < 0)
+			if( this.info.cy > document.body.clientHeight || this.info.cy < 0)
 			{
 				this.info.velocity.y = this.info.velocity.y * -1;
 			}
@@ -89,7 +89,7 @@
 		}
 
 		//create one circle when the game starts
-		this.createNewCircle(document.width/2, document.height/2);
+		this.createNewCircle(document.body.clientWidth/2, document.body.clientHeight/2);
 	}
 
 	var playground = new PlayGround();
