@@ -1,6 +1,24 @@
 <html>
 <head>
 	<title>Javascript Box - OOP demo</title>
+	<style >
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		html{
+			background-color: purple;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
+		#svg{
+			margin: 0px auto;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
 </head>
 <body>
 
@@ -11,7 +29,7 @@
 	{
 		var html_id = html_id;
 		this.info = { cx: cx,  cy: cy };
-		
+
 		//private function that generates a random number
 		var randomNumberBetween = function(min, max){
 			return Math.random()*(max-min) + min;
@@ -24,8 +42,8 @@
 				y: randomNumberBetween(-3,3)
 			}
 
-			//create a circle 
-			var circle = makeSVG('circle', 
+			//create a circle
+			var circle = makeSVG('circle',
 				{ 	cx: this.info.cx,
 				  	cy: this.info.cy,
 				  	r:  10,
@@ -98,7 +116,7 @@
 	document.onclick = function(e) {
 		playground.createNewCircle(e.x,e.y);
 	}
-	
+
 	</script>
 
 </body>
