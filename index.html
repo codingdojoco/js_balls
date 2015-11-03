@@ -58,11 +58,11 @@
 			var el = document.getElementById(html_id);
 
 			//see if the circle is going outside the browser. if it is, reverse the velocity
-			if( this.info.cx > document.body.clientWidth || this.info.cx < 0)
+			if( this.info.cx > document.body.clientWidth-10 || this.info.cx < 10)
 			{
 				this.info.velocity.x = this.info.velocity.x * -1;
 			}
-			if( this.info.cy > document.body.clientHeight || this.info.cy < 0)
+			if( this.info.cy > document.body.clientHeight-10 || this.info.cy < 10)
 			{
 				this.info.velocity.y = this.info.velocity.y * -1;
 			}
