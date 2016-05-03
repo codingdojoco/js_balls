@@ -1,17 +1,54 @@
 <html>
 <head>
 	<title>Javascript Box - OOP demo</title>
+	<style >
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		html{
+			background-color: purple;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
+		#svg{
+			margin: 0px auto;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
 </head>
 <body>
 
 	<svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
 
 	<script>
-	function Circle(cx, cy, html_id)
+	( function(){
+
+		var mousedown_time;
+		var time_pressed;
+		function getTime(){
+			var date = new Date();
+			return date.getTime();
+		}
+
+		document.onmousedown = function(e){
+			mousedown_time = getTime();
+		}
+		document.onmouseup = function(e){
+			time_pressed = getTime() - mousedown_time;
+		}
+
+		//technically we don't even need the mousedown variable but we're leaving it there for now..
+
+
+	function Circle(cx, cy, html_id, r)
 	{
 		var html_id = html_id;
-		this.info = { cx: cx,  cy: cy };
-		
+		this.info = { cx: cx,  cy: cy, r: time_pressed*.1 };
+
 		//private function that generates a random number
 		var randomNumberBetween = function(min, max){
 			return Math.random()*(max-min) + min;
@@ -24,11 +61,11 @@
 				y: randomNumberBetween(-3,3)
 			}
 
-			//create a circle 
-			var circle = makeSVG('circle', 
+			//create a circle
+			var circle = makeSVG('circle',
 				{ 	cx: this.info.cx,
 				  	cy: this.info.cy,
-				  	r:  10,
+				  	r:  time_pressed*.1,
 				  	id: html_id,
 				  	style: "fill: black"
 				});
@@ -40,11 +77,11 @@
 			var el = document.getElementById(html_id);
 
 			//see if the circle is going outside the browser. if it is, reverse the velocity
-			if( this.info.cx > document.body.clientWidth || this.info.cx < 0)
+			if( this.info.cx > document.body.clientWidth-this.info.r || this.info.cx < this.info.r)
 			{
 				this.info.velocity.x = this.info.velocity.x * -1;
 			}
-			if( this.info.cy > document.body.clientHeight || this.info.cy < 0)
+			if( this.info.cy > document.body.clientHeight-this.info.r || this.info.cy < this.info.r)
 			{
 				this.info.velocity.y = this.info.velocity.y * -1;
 			}
@@ -82,14 +119,14 @@
 			}
 		}
 
-		this.createNewCircle = function(x,y){
-			var new_circle = new Circle(x,y,counter++);
+		this.createNewCircle = function(x,y, time_pressed){
+			var new_circle = new Circle(x,y,counter++,time_pressed);
 			circles.push(new_circle);
 			// console.log('created a new circle!', new_circle);
 		}
 
 		//create one circle when the game starts
-		this.createNewCircle(document.body.clientWidth/2, document.body.clientHeight/2);
+		this.createNewCircle(document.body.clientWidth/2, document.body.clientHeight/2, 100);
 	}
 
 	var playground = new PlayGround();
@@ -98,7 +135,7 @@
 	document.onclick = function(e) {
 		playground.createNewCircle(e.x,e.y);
 	}
-	
+})();
 	</script>
 
 </body>
